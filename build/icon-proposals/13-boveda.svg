@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+<defs>
+  <radialGradient id="bg" cx="30%" cy="18%" r="95%">
+    <stop offset="0" stop-color="#1d3a86"/>
+    <stop offset=".55" stop-color="#11245a"/>
+    <stop offset="1" stop-color="#081231"/>
+  </radialGradient>
+  <linearGradient id="n" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#3159c4"/>
+    <stop offset="1" stop-color="#1f3c93"/>
+  </linearGradient>
+  <linearGradient id="n2" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#26489f"/>
+    <stop offset="1" stop-color="#18306f"/>
+  </linearGradient>
+  <linearGradient id="a" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#7cecff"/>
+    <stop offset="1" stop-color="#14b4e4"/>
+  </linearGradient>
+  <linearGradient id="hl" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fff" stop-opacity=".35"/>
+    <stop offset=".35" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <filter id="sh" x="-30%" y="-30%" width="160%" height="170%">
+    <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#020617" flood-opacity=".55"/>
+  </filter>
+  <clipPath id="tile"><rect x="100" y="100" width="824" height="824" rx="184"/></clipPath>
+</defs>
+
+<rect x="100" y="100" width="824" height="824" rx="184" fill="url(#bg)"/>
+<rect x="100" y="100" width="824" height="412" rx="184" fill="url(#hl)" opacity=".18" clip-path="url(#tile)"/>
+<rect x="101" y="101" width="822" height="822" rx="183" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="2"/>
+<g filter="url(#sh)"><circle cx="512" cy="512" r="262" fill="url(#n)"/></g><circle cx="512" cy="512" r="262" fill="url(#hl)"/><circle cx="512" cy="512" r="190" fill="url(#n2)"/><rect x="496" y="352" width="32" height="160" rx="16" fill="#3a5fc9" transform="rotate(0 512 512)"/><rect x="496" y="352" width="32" height="160" rx="16" fill="#3a5fc9" transform="rotate(120 512 512)"/><rect x="496" y="352" width="32" height="160" rx="16" fill="#3a5fc9" transform="rotate(240 512 512)"/><g filter="url(#sh)"><circle cx="512" cy="512" r="78" fill="url(#a)"/></g><circle cx="512" cy="512" r="78" fill="url(#hl)"/><circle cx="512" cy="512" r="26" fill="#0a1430"/><circle cx="738.0" cy="512.0" r="10" fill="#0d1d4a"/><circle cx="671.8" cy="671.8" r="10" fill="#0d1d4a"/><circle cx="512.0" cy="738.0" r="10" fill="#0d1d4a"/><circle cx="352.2" cy="671.8" r="10" fill="#0d1d4a"/><circle cx="286.0" cy="512.0" r="10" fill="#0d1d4a"/><circle cx="352.2" cy="352.2" r="10" fill="#0d1d4a"/><circle cx="512.0" cy="286.0" r="10" fill="#0d1d4a"/><circle cx="671.8" cy="352.2" r="10" fill="#0d1d4a"/></svg>

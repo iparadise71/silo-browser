@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+<defs>
+  <radialGradient id="bg" cx="30%" cy="18%" r="95%">
+    <stop offset="0" stop-color="#1d3a86"/>
+    <stop offset=".55" stop-color="#11245a"/>
+    <stop offset="1" stop-color="#081231"/>
+  </radialGradient>
+  <linearGradient id="n" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#3159c4"/>
+    <stop offset="1" stop-color="#1f3c93"/>
+  </linearGradient>
+  <linearGradient id="n2" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#26489f"/>
+    <stop offset="1" stop-color="#18306f"/>
+  </linearGradient>
+  <linearGradient id="a" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#7cecff"/>
+    <stop offset="1" stop-color="#14b4e4"/>
+  </linearGradient>
+  <linearGradient id="hl" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fff" stop-opacity=".35"/>
+    <stop offset=".35" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <filter id="sh" x="-30%" y="-30%" width="160%" height="170%">
+    <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#020617" flood-opacity=".55"/>
+  </filter>
+  <clipPath id="tile"><rect x="100" y="100" width="824" height="824" rx="184"/></clipPath>
+</defs>
+
+<rect x="100" y="100" width="824" height="824" rx="184" fill="url(#bg)"/>
+<rect x="100" y="100" width="824" height="412" rx="184" fill="url(#hl)" opacity=".18" clip-path="url(#tile)"/>
+<rect x="101" y="101" width="822" height="822" rx="183" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="2"/>
+<g filter="url(#sh)"><rect x="236" y="352" width="552" height="420" rx="56" fill="url(#n2)"/></g><rect x="236" y="352" width="552" height="420" rx="56" fill="url(#hl)"/><g filter="url(#sh)"><path d="M252 400 V300 Q252 252 300 252 H364 Q412 252 412 300 V400 Z" fill="url(#n)"/></g><path d="M252 400 V300 Q252 252 300 252 H364 Q412 252 412 300 V400 Z" fill="url(#hl)"/><g filter="url(#sh)"><path d="M612 400 V300 Q612 252 660 252 H724 Q772 252 772 300 V400 Z" fill="url(#n)"/></g><path d="M612 400 V300 Q612 252 660 252 H724 Q772 252 772 300 V400 Z" fill="url(#hl)"/><g filter="url(#sh)"><path d="M432 400 V300 Q432 252 480 252 H544 Q592 252 592 300 V400 Z" fill="url(#a)"/></g><path d="M432 400 V300 Q432 252 480 252 H544 Q592 252 592 300 V400 Z" fill="url(#hl)"/><rect x="236" y="384" width="552" height="40" fill="url(#a)"/><rect x="300" y="480" width="420" height="26" rx="13" fill="#3a5fc9" opacity=".7"/><rect x="300" y="552" width="340" height="26" rx="13" fill="#3a5fc9" opacity=".7"/><rect x="300" y="624" width="380" height="26" rx="13" fill="#3a5fc9" opacity=".7"/><circle cx="512" cy="312" r="26" fill="#0a1430"/></svg>

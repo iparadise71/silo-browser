@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [develop, release]
+
+jobs:
+  check:
+    name: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      # Integración con el Chrome que traen los runners de GitHub (SingletonLock real).
+      - run: npm run test:chrome
+      - run: npm run build
+      - name: Prueba de humo (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update && sudo apt-get install -y xvfb
+          xvfb-run -a npm run smoke -- --out smoke-linux.png
+          xvfb-run -a npm run smoke -- --quit --out smoke-quit-linux.png --js "const sleep=ms=>new Promise(r=>setTimeout(r,ms));const cards=[...document.querySelectorAll('[data-id]')].slice(1,4);for(const c of cards){c.querySelector('.launch').click();await sleep(400)}for(let i=0;i<30;i++){if(document.querySelectorAll('.pill.on').length>=3)break;await sleep(200)}"
+      - name: Prueba de humo (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          npm run smoke -- --out smoke-mac.png
+          npm run smoke -- --quit --out smoke-quit-mac.png --js "const sleep=ms=>new Promise(r=>setTimeout(r,ms));const cards=[...document.querySelectorAll('[data-id]')].slice(1,4);for(const c of cards){c.querySelector('.launch').click();await sleep(400)}for(let i=0;i<30;i++){if(document.querySelectorAll('.pill.on').length>=3)break;await sleep(200)}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smoke-${{ matrix.os }}
+          path: smoke-*.png
+          if-no-files-found: ignore

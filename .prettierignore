@@ -1,0 +1,9 @@
+out
+dist
+release
+node_modules
+docs
+package-lock.json
+.tsbuild
+build/icon-proposals
+LICENSE.md

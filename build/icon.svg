@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+<defs>
+  <radialGradient id="bg" cx="30%" cy="18%" r="95%">
+    <stop offset="0" stop-color="#1d3a86"/>
+    <stop offset=".55" stop-color="#11245a"/>
+    <stop offset="1" stop-color="#081231"/>
+  </radialGradient>
+  <linearGradient id="n" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#3159c4"/>
+    <stop offset="1" stop-color="#1f3c93"/>
+  </linearGradient>
+  <linearGradient id="n2" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#26489f"/>
+    <stop offset="1" stop-color="#18306f"/>
+  </linearGradient>
+  <linearGradient id="a" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#7cecff"/>
+    <stop offset="1" stop-color="#14b4e4"/>
+  </linearGradient>
+  <linearGradient id="hl" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fff" stop-opacity=".35"/>
+    <stop offset=".35" stop-color="#fff" stop-opacity="0"/>
+  </linearGradient>
+  <filter id="sh" x="-30%" y="-30%" width="160%" height="170%">
+    <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#020617" flood-opacity=".55"/>
+  </filter>
+  <clipPath id="tile"><rect x="100" y="100" width="824" height="824" rx="184"/></clipPath>
+</defs>
+
+<rect x="100" y="100" width="824" height="824" rx="184" fill="url(#bg)"/>
+<rect x="100" y="100" width="824" height="412" rx="184" fill="url(#hl)" opacity=".18" clip-path="url(#tile)"/>
+<rect x="101" y="101" width="822" height="822" rx="183" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="2"/>
+<g filter="url(#sh)"><path d="M690 322 H404 Q336 322 336 390 V408 Q336 476 404 476 H468" fill="none" stroke="url(#a)" stroke-width="108" stroke-linecap="round" stroke-linejoin="round"/><path d="M556 548 H620 Q688 548 688 616 V634 Q688 702 620 702 H334" fill="none" stroke="url(#n)" stroke-width="108" stroke-linecap="round" stroke-linejoin="round"/></g><circle cx="404" cy="399" r="28" fill="#0a1430"/></svg>

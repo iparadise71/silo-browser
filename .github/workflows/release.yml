@@ -1,0 +1,91 @@
+name: Release
+
+# Al crear un tag v* compila los instaladores en cada sistema y los publica en un GitHub Release:
+#   macOS   → .dmg (Apple Silicon e Intel)
+#   Linux   → .deb y AppImage (x64 y arm64)
+#   Windows → instalador .exe (x64)
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: macOS
+            os: macos-latest
+            args: --mac
+          - name: Linux
+            os: ubuntu-latest
+            args: --linux
+          - name: Windows
+            os: windows-latest
+            args: --win
+    runs-on: ${{ matrix.os }}
+    env:
+      HAS_MAC_CERT: ${{ secrets.MAC_CERT_P12_BASE64 != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # Los tests usan rutas POSIX: corren en macOS y Linux.
+      - run: npm test
+        if: runner.os != 'Windows'
+      - run: npm run build
+      - name: Empaquetar
+        shell: bash
+        run: |
+          EXTRA=""
+          # Sin certificado Developer ID, macOS se firma ad-hoc: sin firma la app no arranca en Apple Silicon.
+          if [ "$RUNNER_OS" = "macOS" ] && [ "$HAS_MAC_CERT" != "true" ]; then EXTRA="-c.mac.identity=-"; fi
+          npx electron-builder ${{ matrix.args }} --publish never $EXTRA
+        env:
+          # Firma y notarización de macOS (opcionales).
+          CSC_LINK: ${{ secrets.MAC_CERT_P12_BASE64 }}
+          CSC_KEY_PASSWORD: ${{ secrets.MAC_CERT_PASSWORD }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          CSC_IDENTITY_AUTO_DISCOVERY: ${{ secrets.MAC_CERT_P12_BASE64 != '' }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: installers-${{ matrix.name }}
+          if-no-files-found: error
+          path: |
+            release/*/*.dmg
+            release/*/*.deb
+            release/*/*.AppImage
+            release/*/*.exe
+            release/*/*.blockmap
+            release/*/latest*.yml
+
+  publish:
+    name: Publicar release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          pattern: installers-*
+          merge-multiple: true
+      - name: Crear el release con los instaladores
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          find artifacts -type f | sort
+          gh release create "$GITHUB_REF_NAME" $(find artifacts -type f) \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "Silo Browser $GITHUB_REF_NAME" \
+            --generate-notes

@@ -1,0 +1,62 @@
+# Empaquetado de Silo Browser. macOS: .dmg (Apple Silicon e Intel). Ubuntu: AppImage y .deb. Windows: instalador .exe.
+appId: com.idealdevs.silobrowser
+productName: Silo Browser
+copyright: Copyright © 2026 IdealDevs
+directories:
+  output: release/${version}
+  buildResources: build
+files:
+  - out/**
+  - package.json
+  - '!**/*.map'
+extraResources: []
+asar: true
+
+mac:
+  category: public.app-category.productivity
+  icon: build/icon.png
+  target:
+    - target: dmg
+      arch: [arm64, x64]
+  hardenedRuntime: true
+  gatekeeperAssess: false
+  # Firma: electron-builder usa el certificado «Developer ID Application» del llavero
+  # o CSC_LINK/CSC_KEY_PASSWORD. Notarización: APPLE_ID, APPLE_APP_SPECIFIC_PASSWORD, APPLE_TEAM_ID.
+  notarize: false
+dmg:
+  artifactName: Silo-Browser-${version}-${arch}.dmg
+
+win:
+  icon: build/icon.png
+  target:
+    - target: nsis
+      arch: [x64]
+nsis:
+  artifactName: Silo-Browser-${version}-${arch}-setup.${ext}
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+
+linux:
+  icon: build/icon.png
+  category: Utility
+  executableName: silo-browser
+  synopsis: Perfiles de Chrome aislados
+  description: Gestiona perfiles de Chrome totalmente aislados, cada uno con su propia cuenta y sesión.
+  maintainer: IdealDevs <samuel@amauta.tech>
+  target:
+    - target: AppImage
+      arch: [x64, arm64]
+    - target: deb
+      arch: [x64, arm64]
+  artifactName: Silo-Browser-${version}-${arch}.${ext}
+deb:
+  # Ubuntu 24.04+ restringe los user namespaces: el .deb instala chrome-sandbox con SUID.
+  afterInstall: build/linux/after-install.sh
+
+# Auto-update con GitHub Releases. El workflow de release sube los instaladores y los latest*.yml.
+publish:
+  provider: github
+  owner: iparadise71
+  repo: silo-browser
+  releaseType: release
